@@ -34,8 +34,8 @@ runs:
         echo "$SSH_KNOWN_HOSTS" > ~/.ssh/known_hosts
       shell: bash 
       env:
-          SSH_PRIVATE_KEY: ${{secrets.SSH_PRIVATE_KEY}}
-          SSH_KNOWN_HOSTS: ${{secrets.SSH_KNOWN_HOSTS}}
+        SSH_PRIVATE_KEY: ${{secrets.SSH_PRIVATE_KEY}}
+        SSH_KNOWN_HOSTS: ${{secrets.SSH_KNOWN_HOSTS}}
     
     - name: Create env file
       run: |
