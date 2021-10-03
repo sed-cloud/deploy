@@ -20,10 +20,6 @@ inputs:
   SSH_KNOWN_HOSTS: 
     description: 'ssh known hosts secret from org (github actions hates me)'
     required: true
-  env-variables: 
-    description: 'list of environment variables to pass through'
-    requried: false
-    default: {}
     
 runs:
   using: "composite"
@@ -60,13 +56,6 @@ runs:
         echo SED_CLOUD_USER=${{ inputs.SED_CLOUD_USER }} >> .env
         echo REPO_OWNER=${{ inputs.repo-owner }} >> .env
         echo REPO_NAME=${{ inputs.repo-name }} >> .env
-                
-        # handle custom env variables
-        array=${{inputs.env-variables}}
-        for i in "${!array[@]}"
-        do
-          echo ${$i^^}=${!array[i]} >> .env
-        done
       shell: bash 
       
     - name: Install PM2
