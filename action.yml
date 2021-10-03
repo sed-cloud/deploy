@@ -67,7 +67,7 @@ runs:
       id: main
       run: | 
         OUTPUT=$(npx pm2 describe ${{ inputs.repo-name }})
-        echo "::set-output name=OUTPUT::$OUTPUT"
+        echo "::set-output name=OUTPUT::$?"
         
     - name: Setup Deploy
       shell: bash
