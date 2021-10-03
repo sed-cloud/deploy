@@ -34,10 +34,11 @@ runs:
         echo "$SSH_KNOWN_HOSTS" > ~/.ssh/known_hosts
       shell: bash 
       env:
-        SED_CLOUD_HOST: "${{ secrets.SED_CLOUD_HOST }}"
-        SED_CLOUD_USER: "${{ secrets.SED_CLOUD_USER }}"
-        SSH_PRIVATE_KEY: "${{ secrets.SSH_PRIVATE_KEY }}"
-        SSH_KNOWN_HOSTS: "${{ secrets.SSH_KNOWN_HOSTS }}"
+        PYPI_USERNAME: ${{ secrets.PYPI_USERNAME }} 
+        SED_CLOUD_HOST: ${{ secrets.SED_CLOUD_HOST }}
+        SED_CLOUD_USER: ${{ secrets.SED_CLOUD_USER }}
+        SSH_PRIVATE_KEY: ${{ secrets.SSH_PRIVATE_KEY }}
+        SSH_KNOWN_HOSTS: ${{ secrets.SSH_KNOWN_HOSTS }}
     
     - name: Create env file
       run: |
