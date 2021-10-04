@@ -66,7 +66,7 @@ runs:
       shell: bash
       run: |
         chmod +x ${{ github.action_path }}/execute_deploy.sh
-        ${{ github.action_path }}/execute_deploy.sh ${{ inputs.repo-name }}
+        ${{ github.action_path }}/execute_deploy.sh ${{ inputs.repo-name }} ${{ github.action_path }}
       
       
       
