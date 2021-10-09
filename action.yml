@@ -68,7 +68,7 @@ runs:
         git clone https://github.com/${{input.repo-owner}}/${{ input.repo-name }}.git workdir
         cp ${{ github.action_path }}/ecosystem.config.js workdir/
         cp ${{ github.action_path }}/startup.sh workdir/
-        cp ${{ github.action_path }}/execute_deploy.sh
+        cp ${{ github.action_path }}/execute_deploy.sh workdir/
 
     - name: Deploy
       shell: bash
