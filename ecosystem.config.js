@@ -1,3 +1,8 @@
+function omit(key, obj) {
+  const { [key]: omitted, ...rest } = obj;
+  return rest;
+}
+
 module.exports = {
   apps: [{
     name: `${process.env.REPO_NAME}`,
@@ -17,7 +22,7 @@ module.exports = {
       path: `/home/${process.env.SED_CLOUD_USER}/${process.env.REPO_NAME}`,
       'post-deploy': "docker-compose build && pm2 reload ecosystem.config.js --env production",
       env: {
-        ...process.env
+        ...omit('RUNNER_NAME', process.env)
       }
     }
   }
