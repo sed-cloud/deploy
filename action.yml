@@ -65,8 +65,7 @@ runs:
     - name: Deploy
       shell: bash
       run: |
-        chmod +x ${{ github.action_path }}/execute_deploy.sh
-        ${{ github.action_path }}/execute_deploy.sh ${{ inputs.repo-name }} ${{ github.action_path }}
+        env $(cat .env | grep -v \"#\" | xargs) npx pm2 deploy ${{ github.action_path }}/ecosystem.config.js production update  
       
       
       
