@@ -61,6 +61,14 @@ runs:
     - name: Install PM2
       shell: bash
       run: npm init -y && npm i pm2
+      
+    - name: Create Workdir
+      shell: bash
+      run: |
+        git clone https://github.com/${{input.repo-owner}}/${{ input.repo-name }}.git workdir
+        cp ${{ github.action_path }}/ecosystem.config.js workdir/
+        cp ${{ github.action_path }}/startup.sh workdir/
+        cp ${{ github.action_path }}/execute_deploy.sh
 
     - name: Deploy
       shell: bash
