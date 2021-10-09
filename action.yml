@@ -67,10 +67,8 @@ runs:
       run: |
         cp ${{ github.action_path }}/ecosystem.config.js source/
         cp ${{ github.action_path }}/startup.sh source/
-        
-        cd source
 
-        env $(cat ../.env | grep -v \"#\" | xargs) npx pm2 deploy ecosystem.config.js production update  
+        env $(cat .env | grep -v \"#\" | xargs) npx pm2 deploy source/ecosystem.config.js production update  
       
       
       
