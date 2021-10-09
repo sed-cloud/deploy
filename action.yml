@@ -44,18 +44,18 @@ runs:
         SSH_KNOWN_HOSTS: ${{ inputs.SSH_KNOWN_HOSTS }}
       run: | 
         mkdir -p ~/.ssh/
-        echo "$SSH_PRIVATE_KEY" > ./deploy.key
-        sudo chmod 600 ./deploy.key
+        echo "$SSH_PRIVATE_KEY" > source/deploy.key
+        sudo chmod 600 source/deploy.key
         echo "$SSH_KNOWN_HOSTS" > ~/.ssh/known_hosts
     - name: Create env file
       run: |
-        touch .env
+        touch source/.env
         
         # handle builtin env variables
-        echo SED_CLOUD_HOST=${{ inputs.SED_CLOUD_HOST }} >> .env 
-        echo SED_CLOUD_USER=${{ inputs.SED_CLOUD_USER }} >> .env
-        echo REPO_OWNER=${{ inputs.repo-owner }} >> .env
-        echo REPO_NAME=${{ inputs.repo-name }} >> .env
+        echo SED_CLOUD_HOST=${{ inputs.SED_CLOUD_HOST }} >> source/.env
+        echo SED_CLOUD_USER=${{ inputs.SED_CLOUD_USER }} >> source/.env
+        echo REPO_OWNER=${{ inputs.repo-owner }} >> source/.env
+        echo REPO_NAME=${{ inputs.repo-name }} >> source/.env
       shell: bash 
       
     - name: Install PM2
@@ -68,7 +68,9 @@ runs:
         cp ${{ github.action_path }}/ecosystem.config.js source/
         cp ${{ github.action_path }}/startup.sh source/
 
-        env $(cat .env | grep -v \"#\" | xargs) npx pm2 deploy source/ecosystem.config.js production update  
+        cd source/
+
+        env $(cat .env | grep -v \"#\" | xargs) npx pm2 deploy ecosystem.config.js production update  
       
       
       
