@@ -62,18 +62,17 @@ runs:
       shell: bash
       run: npm init -y && npm i pm2
       
-    - name: Create Workdir
+    - name: Create Workdir & deploy
       shell: bash
       run: |
         git clone https://github.com/${{inputs.repo-owner}}/${{ inputs.repo-name }}.git workdir
         cp ${{ github.action_path }}/ecosystem.config.js workdir/
         cp ${{ github.action_path }}/startup.sh workdir/
         cp ${{ github.action_path }}/execute_deploy.sh workdir/
+        
+        cd workdir
 
-    - name: Deploy
-      shell: bash
-      run: |
-        env $(cat .env | grep -v \"#\" | xargs) npx pm2 deploy ${{ github.action_path }}/ecosystem.config.js production update  
+        env $(cat .env | grep -v \"#\" | xargs) npx pm2 deploy ecosystem.config.js production update  
       
       
       
