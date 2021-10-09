@@ -1,7 +1,7 @@
 module.exports = {
   apps: [{
     name: `${process.env.REPO_NAME}`,
-    cmd: "docker-compose up",
+    script: "startup.sh",
     interpreter: '/bin/bash'
     env: {
       ...process.env
