@@ -2,7 +2,7 @@ module.exports = {
   apps: [{
     name: `${process.env.REPO_NAME}`,
     script: "startup.sh",
-    interpreter: '/bin/bash'
+    interpreter: '/bin/bash',
     env: {
       ...process.env
     }
