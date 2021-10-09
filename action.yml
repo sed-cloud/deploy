@@ -65,8 +65,6 @@ runs:
     - name: Deploy
       shell: bash
       run: |
-        cp ${{ github.action_path }}/ecosystem.config.js source/
-        cp ${{ github.action_path }}/startup.sh source/
 
         cd source/
 
