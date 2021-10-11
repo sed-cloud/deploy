@@ -20,7 +20,7 @@ module.exports = {
       key: 'deploy.key',
       repo: `https://github.com/${process.env.REPO_OWNER}/${process.env.REPO_NAME}.git`,
       path: `/home/${process.env.SED_CLOUD_USER}/${process.env.REPO_NAME}`,
-      'post-deploy': "docker-compose build && docker-compose up && pm2 reload ecosystem.config.js",
+      'post-deploy': "docker-compose build && docker-compose up && PM2_HOME=/home/sed/.pm2 && pm2 reload ecosystem.config.js",
       env: {
         ...omit('RUNNER_NAME', process.env)
       }
