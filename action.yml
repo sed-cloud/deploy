@@ -56,7 +56,6 @@ runs:
         echo SED_CLOUD_USER=${{ inputs.SED_CLOUD_USER }} >> source/.env
         echo REPO_OWNER=${{ inputs.repo-owner }} >> source/.env
         echo REPO_NAME=${{ inputs.repo-name }} >> source/.env
-        echo PM2_HOME=/etc/pm2daemon/ >> source/.env
         
       shell: bash 
       
