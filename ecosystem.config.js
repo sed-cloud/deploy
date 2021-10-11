@@ -8,7 +8,7 @@ module.exports = {
     name: `${process.env.REPO_NAME}`,
     script: "startup.sh",
     interpreter: '/bin/bash',
-    env: {
+    env_production: {
       ...process.env
     }
   }],
