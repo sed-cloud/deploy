@@ -44,8 +44,8 @@ runs:
         SSH_KNOWN_HOSTS: ${{ inputs.SSH_KNOWN_HOSTS }}
       run: | 
         mkdir -p ~/.ssh/
-        echo "$SSH_PRIVATE_KEY" > ~/.ssh/deploy.key
-        sudo chmod 600 ~/.ssh/deploy.key
+        echo "$SSH_PRIVATE_KEY" > source/deploy.key
+        sudo chmod 600 source/deploy.key
         echo "$SSH_KNOWN_HOSTS" > ~/.ssh/known_hosts
     - name: Create env file
       run: |
@@ -63,12 +63,13 @@ runs:
       shell: bash
       run: |
         #rsync -avzP source/ ${{ inputs.SED_CLOUD_USER }}@${{ inputs.SED_CLOUD_HOST }}:/home/${{ inputs.SED_CLOUD_USER }}/${{ inputs.repo-name }}
-        ssh ${{ inputs.SED_CLOUD_USER }}@${{ inputs.SED_CLOUD_HOST }} " cd /home/${{ inputs.SED_CLOUD_USER }}/ ; git clone https://github.com/${{ inputs.repo-owner }}/${{ inputs.repo-name }}.git"
+        ssh deploy " cd /home/${{ inputs.SED_CLOUD_USER }}/ ; git clone https://github.com/${{ inputs.repo-owner }}/${{ inputs.repo-name }}.git"
         
     - name: Deploy
       shell: bash
       run: |
-        ssh ${{ inputs.SED_CLOUD_USER }}@${{ inputs.SED_CLOUD_HOST }} " cd /home/${{ inputs.SED_CLOUD_USER }}/${{ inputs.repo-name }} ; docker-compose --env-file .env up -d "
+        #  ${{ inputs.SED_CLOUD_USER }}@${{ inputs.SED_CLOUD_HOST }}
+        ssh deploy " cd /home/${{ inputs.SED_CLOUD_USER }}/${{ inputs.repo-name }} ; docker-compose --env-file .env up -d "
       
       
       
