@@ -62,7 +62,7 @@ runs:
     - name: Copy Source
       shell: bash
       run: |
-        rsync -avzP -e "ssh -p 6969" source/ ${{ inputs.SED_CLOUD_USER }}@${{ inputs.SED_CLOUD_HOST }}:/home/${{ inputs.SED_CLOUD_USER }}/${{ inputs.repo-name }}
+        rsync -avzP source/ ${{ inputs.SED_CLOUD_USER }}@${{ inputs.SED_CLOUD_HOST }}:/home/${{ inputs.SED_CLOUD_USER }}/${{ inputs.repo-name }}
       
     - name: Deploy
       shell: bash
