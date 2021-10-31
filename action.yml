@@ -49,7 +49,7 @@ runs:
         echo "$SSH_KNOWN_HOSTS" > ~/.ssh/known_hosts
         
         cat >>~/.ssh/config <<END
-        Host staging
+        Host deploy
           HostName ${{ inputs.SED_CLOUD_HOST }}
           User ${{ inputs.SED_CLOUD_USER }}
           IdentityFile ~/.ssh/deploy.key
