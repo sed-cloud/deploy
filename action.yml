@@ -71,8 +71,8 @@ runs:
     - name: Copy Source
       shell: bash
       run: |
-        ssh deploy " cd /home/${{ inputs.SED_CLOUD_USER }}/ ; git clone https://github.com/${{ inputs.repo-owner }}/${{ inputs.repo-name }}.git"
-        scp source/.env deploy:/home/${{ inputs.SED_CLOUD_USER }}/${{ inputs.repo-name }}/.env
+        #ssh deploy " cd /home/${{ inputs.SED_CLOUD_USER }}/ ; git clone https://github.com/${{ inputs.repo-owner }}/${{ inputs.repo-name }}.git"
+        scp -r source/ deploy:/home/${{ inputs.SED_CLOUD_USER }}/${{ inputs.repo-name }}/
         
     - name: Deploy
       shell: bash
