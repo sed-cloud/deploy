@@ -71,8 +71,8 @@ runs:
     - name: Copy Source
       shell: bash
       run: |
-        #rsync -avzP source/ ${{ inputs.SED_CLOUD_USER }}@${{ inputs.SED_CLOUD_HOST }}:/home/${{ inputs.SED_CLOUD_USER }}/${{ inputs.repo-name }}
-        ssh deploy " cd /home/${{ inputs.SED_CLOUD_USER }}/ ; git clone https://github.com/${{ inputs.repo-owner }}/${{ inputs.repo-name }}.git"
+        rsync -avzP source/ ${{ inputs.SED_CLOUD_USER }}@${{ inputs.SED_CLOUD_HOST }}:/home/${{ inputs.SED_CLOUD_USER }}/${{ inputs.repo-name }}
+        #ssh deploy " cd /home/${{ inputs.SED_CLOUD_USER }}/ ; git clone https://github.com/${{ inputs.repo-owner }}/${{ inputs.repo-name }}.git"
         
     - name: Deploy
       shell: bash
