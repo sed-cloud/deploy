@@ -49,12 +49,12 @@ runs:
         echo "$SSH_KNOWN_HOSTS" > ~/.ssh/known_hosts
         
         cat >>~/.ssh/config <<END
-          Host staging
-            HostName ${{ inputs.SED_CLOUD_HOST }}
-            User ${{ inputs.SED_CLOUD_USER }}
-            IdentityFile ~/.ssh/deploy.key
-            StrictHostKeyChecking no
-          END
+        Host staging
+          HostName ${{ inputs.SED_CLOUD_HOST }}
+          User ${{ inputs.SED_CLOUD_USER }}
+          IdentityFile ~/.ssh/deploy.key
+          StrictHostKeyChecking no
+        END
         
     - name: Create env file
       run: |
