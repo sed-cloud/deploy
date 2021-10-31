@@ -78,7 +78,7 @@ runs:
       shell: bash
       run: |
         #  ${{ inputs.SED_CLOUD_USER }}@${{ inputs.SED_CLOUD_HOST }}
-        ssh deploy " cd /home/${{ inputs.SED_CLOUD_USER }}/${{ inputs.repo-name }} ; docker-compose --env-file .env up -d "
+        ssh deploy " cd /home/${{ inputs.SED_CLOUD_USER }}/${{ inputs.repo-name }} ; docker-compose down; docker-compose --env-file .env up -d "
       
       
       
