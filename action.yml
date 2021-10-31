@@ -62,12 +62,13 @@ runs:
     - name: Copy Source
       shell: bash
       run: |
-        rsync -avzP source/ ${{ inputs.SED_CLOUD_USER }}@${{ inputs.SED_CLOUD_HOST }}:/home/${{ inputs.SED_CLOUD_USER }}/${{ inputs.repo-name }}
-      
+        #rsync -avzP source/ ${{ inputs.SED_CLOUD_USER }}@${{ inputs.SED_CLOUD_HOST }}:/home/${{ inputs.SED_CLOUD_USER }}/${{ inputs.repo-name }}
+        ssh ${{ inputs.SED_CLOUD_USER }}@${{ inputs.SED_CLOUD_HOST }} " cd /home/${{ inputs.SED_CLOUD_USER }}/ ; git clone https://github.com/${{ inputs.repo-owner }}/${{ inputs.repo-name }}.git"
+        
     - name: Deploy
       shell: bash
       run: |
-        ssh ${{ inputs.SED_CLOUD_USER }}@${{ inputs.SED_CLOUD_HOST }} docker-compose --env-file .env up -d 
+        ssh ${{ inputs.SED_CLOUD_USER }}@${{ inputs.SED_CLOUD_HOST }} " cd /home/${{ inputs.SED_CLOUD_USER }}/${{ inputs.repo-name }} ; docker-compose --env-file .env up -d "
       
       
       
