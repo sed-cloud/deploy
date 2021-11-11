@@ -7,6 +7,9 @@ inputs:
   repo-name: 
     description: 'name of the repo being deployed'
     required: true
+  repo-type:
+    description: 'the type of repo being deployed'
+    required: true
   
   SED_CLOUD_HOST: 
     description: 'cloud host secret from org (github actions hates me)'
@@ -20,6 +23,7 @@ inputs:
   SSH_KNOWN_HOSTS: 
     description: 'ssh known hosts secret from org (github actions hates me)'
     required: true
+    
     
 runs:
   using: "composite"
@@ -73,10 +77,15 @@ runs:
       run: |
         scp -r source/ deploy:/home/${{ inputs.SED_CLOUD_USER }}/${{ inputs.repo-name }}/
         
-    - name: Deploy
+    - name: Deploy DB
       shell: bash
+      if: ${{ contains(inputs.repo-type, 'DB') }} 
       run: |
         ssh deploy " cd /home/${{ inputs.SED_CLOUD_USER }}/${{ inputs.repo-name }} ; docker-compose down ; docker-compose --env-file .env up -d ; docker-compose run --rm ${{ inputs.repo-name }}-service /bin/bash -c 'alembic revision -m baseline && alembic upgrade head && alembic revision --autogenerate -m db-update && alembic upgrade head'"
       
-      
+    - name: Deploy Service
+      shell: bash
+      if: ${{ contains(inputs.repo-type, 'SERVICE') }} 
+      run: |
+        ssh deploy " cd /home/${{ inputs.SED_CLOUD_USER }}/${{ inputs.repo-name }} ; docker-compose down ; docker-compose --env-file .env up -d ; "
       
