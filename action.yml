@@ -72,7 +72,7 @@ runs:
         # echo SED_CLOUD_USER=${{ inputs.SED_CLOUD_USER }} >> source/.env
         # echo REPO_OWNER=${{ inputs.repo-owner }} >> source/.env
         # echo REPO_NAME=${{ inputs.repo-name }} >> source/.env
-        for item in `echo '${{ inputs.SECRETS }}' | jq -r 'to_entries[] | "\(.key)=\(.value)"'` ; do ; echo $item >> source/.env ; done
+        for item in `echo '${{ inputs.SECRETS }}' | jq -r 'to_entries[] | "\(.key)=\(.value)"'` ; do echo $item >> source/.env ; done
         
       shell: bash 
       
