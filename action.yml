@@ -82,7 +82,7 @@ runs:
       shell: bash
       run: |
         chmod -R 777 source
-        scp -r source/ deploy:/home/${{ inputs.SED_CLOUD_USER }}/${{ inputs.repo-name }}/
+        rsync -a source/ deploy:/home/${{ inputs.SED_CLOUD_USER }}/${{ inputs.repo-name }}/
         
     - name: Deploy DB
       shell: bash
