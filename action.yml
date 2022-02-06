@@ -74,6 +74,8 @@ runs:
         # echo REPO_NAME=${{ inputs.repo-name }} >> source/.env
         for item in `echo '${{ inputs.SECRETS }}' | jq -r 'to_entries[] | "\(.key)=\(.value)"'` ; do echo $item >> source/.env ; done
         
+        cat source/.env
+        
       shell: bash 
       
     - name: Copy Source
