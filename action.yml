@@ -97,4 +97,4 @@ runs:
       shell: bash
       if: ${{ contains(inputs.repo-type, 'WEB') }} 
       run: |
-        ssh deploy " cd /home/${{ inputs.SED_CLOUD_USER }}/${{ inputs.repo-name }} ; docker stop ${{ inputs.repo-name }} ; docker build -t nextjs-docker . ; docker run --name ${{ inputs.repo-name }} -d -p 3000:3000 --env-file .env nextjs-docker"
+        ssh deploy " cd /home/${{ inputs.SED_CLOUD_USER }}/${{ inputs.repo-name }} ; docker stop ${{ inputs.repo-name }} ; docker rm ${{ inputs.repo-name }} ; docker build -t nextjs-docker . ; docker run --name ${{ inputs.repo-name }} -d -p 3000:3000 --env-file .env nextjs-docker"
