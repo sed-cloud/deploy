@@ -23,6 +23,9 @@ inputs:
   SSH_KNOWN_HOSTS: 
     description: 'ssh known hosts secret from org (github actions hates me)'
     required: true
+  SECRETS: 
+    description: 'All secrets from the calling repository'
+    required: true
     
     
 runs:
@@ -65,10 +68,11 @@ runs:
         touch source/.env
         
         # handle builtin env variables
-        echo SED_CLOUD_HOST=${{ inputs.SED_CLOUD_HOST }} >> source/.env
-        echo SED_CLOUD_USER=${{ inputs.SED_CLOUD_USER }} >> source/.env
-        echo REPO_OWNER=${{ inputs.repo-owner }} >> source/.env
-        echo REPO_NAME=${{ inputs.repo-name }} >> source/.env
+        # echo SED_CLOUD_HOST=${{ inputs.SED_CLOUD_HOST }} >> source/.env
+        # echo SED_CLOUD_USER=${{ inputs.SED_CLOUD_USER }} >> source/.env
+        # echo REPO_OWNER=${{ inputs.repo-owner }} >> source/.env
+        # echo REPO_NAME=${{ inputs.repo-name }} >> source/.env
+        for item in `echo ${{ inputs.SECRETS }} | jq -r 'to_entries[] | "\(.key)=\(.value)"'` ; do ; echo $item >> source/.env ; done
         
       shell: bash 
       
@@ -93,4 +97,4 @@ runs:
       shell: bash
       if: ${{ contains(inputs.repo-type, 'WEB') }} 
       run: |
-        ssh deploy " cd /home/${{ inputs.SED_CLOUD_USER }}/${{ inputs.repo-name }} ; docker stop ${{ inputs.repo-name }} ; docker build -t nextjs-docker . ; docker run --name ${{ inputs.repo-name }} -d -p 3000:3000 nextjs-docker"
+        ssh deploy " cd /home/${{ inputs.SED_CLOUD_USER }}/${{ inputs.repo-name }} ; docker stop ${{ inputs.repo-name }} ; docker build -t nextjs-docker . ; docker run --name ${{ inputs.repo-name }} -d -p 3000:3000 --env-file .env nextjs-docker"
